@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-desktop
+#  namespace: zhanghong
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu-desktop
+  template:
+    metadata:
+      labels:
+        app: ubuntu-desktop
+    spec:
+#      nodeSelector:
+#        paascloud_zk: default 
+      restartPolicy: Never          
+      containers:
+      - name: ubuntu-desktop
+        image:  dorowu/ubuntu-desktop-lxde-vnc
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 80
+        - name: vnc
+          containerPort: 5900
+        env:
+        - name: VNC_PASSWORD
+          value: mypassword
+        - name: RESOLUTION
+          value: 1920x1080
+        resources:
+          requests:
+            cpu: 2
+            memory: 8Gi
+          limits:
+            memory: 8Gi        
+           
+       
+ 
+          
+
+          
